@@ -56,12 +56,13 @@ player = Player(player_name, room["outside"])
 #
 # If the user enters "q", quit the game.
 print(f"****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
-print("""******************** Available Move Options ******************
+options = """******************** Available Move Options ******************
    { n } North | { s } South |  { w } West | { e } East\n
 ******************** Other Options ***************************
    { get 'item name' } | { take 'item name' } Carry an item
    { i } | { inventory } Show carried items
-******************** Enter [Q] to Exit the Adventure *********\n""")
+******************** Enter [Q] to Exit the Adventure *********\n"""
+print(options)
 print(player.current_room)
 
 playerInput = ""
@@ -72,7 +73,9 @@ while True:
         if playerInput[0] == "q":
             break
         elif playerInput[0] == "i" or playerInput[0] == "inventory":
-            print(f"Inventory: {player.inventory}")
+            print(f"Inventory: {player}")
+        elif playerInput[0] == "o":
+            print(options)
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:
@@ -85,4 +88,4 @@ while True:
             player.getItem(playerInput[1])
 
 
-print(f"\t*** Good bye {player_name}, see you next time. ***")
+print(f"\n\t*** Good bye {player_name}, see you next time. ***\n")

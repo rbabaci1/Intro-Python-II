@@ -15,7 +15,7 @@ class Room:
         list = ""
         for i in self.items:
             list += f" {i}, "
-        return f"Room name: {self.name}\nDescription: {self.description}\nAvailable items: {list[:-2]}\n"
+        return f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: {list[:-2]}\n"
 
     def getNextRoom(self, userInput):
         if userInput == "n":

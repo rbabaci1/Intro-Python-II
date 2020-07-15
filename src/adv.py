@@ -64,8 +64,8 @@ while True:
         "\n1) To move to a different room select:\n  [n]\t  [s]\t  [e]\t  [w]\n`north`\t`south`\t `east`\t `west`\n\n2) [get/take item] to pick an item from the list:\n\n>>> ").split()
     print(userInput)
 
-    if len(userInput) is 1:
-        if userInput[0] is "q":
+    if len(userInput) == 1:
+        if userInput[0] == "q":
             break
         elif userInput[0] not in directions:
             print("\t\n*** Direction not allowed. Try again? ***")
@@ -75,19 +75,23 @@ while True:
             else:
                 print(
                     "\n*** No room is available in that direction. Try a different direction. ***\n")
-    if len(userInput) is 2:
+    if len(userInput) == 2:
         if userInput[0] != "get" and userInput[0] != "take" and userInput[0] != "drop":
             print(
                 "To get you're wanted item, you must proceed with (get or take) + item name.\n")
+        elif userInput[0] == "drop":
+            if userInput[1] in player.list:
+                current_room.addItem(userInput[1])
+                player.removeItem(userInput[1])
+                print("\nItem dropped\n")
+            else:
+                print("\nThe selected item doesn't exists in your inventory.")
         else:
             if userInput[1] in current_room.list:
-                if userInput[0] is "drop":
-                    current_room.addItem(userInput[1])
-                    player.removeItem(userInput[1])
-                else:
-                    player.addItem(userInput[1])
-                    current_room.removeItem(userInput[1])
+                player.addItem(userInput[1])
+                current_room.removeItem(userInput[1])
+                print("\nItem added\n")
             else:
-                print("The selected item doesn't exists in your current room.\n")
+                print("The selected item doesn't exists in the current room.")
 
 print("\t*** Good bye, see you next time. ***")

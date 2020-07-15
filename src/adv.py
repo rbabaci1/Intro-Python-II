@@ -78,6 +78,8 @@ while True:
     if len(playerInput) == 1:
         if playerInput[0] == "q":
             break
+        elif playerInput[0] == "i" or playerInput[0] == "inventory":
+            print(player.roomItems)
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:

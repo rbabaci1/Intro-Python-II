@@ -4,17 +4,21 @@ class Player:
         self.current_room = current_room
         self.inventory = []
 
+    @property
+    def roomItems(self):
+        return self.current_room.items
+
     def walk(self, direction):
-        nextRoom = getattr(self.current_room, f"{direction}_to")
-        if nextRoom:
+        try:
+            nextRoom = getattr(self.current_room, f"{direction}_to")
             self.current_room = nextRoom
-        else:
+        except AttributeError:
             print(f"\n**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
-        if item in self.current_room.items:
+        if item in self.roomItems:
             self.inventory.append(item)
-            self.current_room.items.remove(item)
+            self.roomItems.remove(item)
         else:
             print(
                 f"{item}'s not available in the current room. TRY A DIFFERENT ITEM")
@@ -22,6 +26,6 @@ class Player:
     def dropItem(self, item):
         if item in self.inventory:
             self.inventory.remove(item)
-            self.current_room.items.append(item)
+            self.roomItems.append(item)
         else:
             print(f"{item}'s not available in your inventory. TRY A DIFFERENT ITEM")

@@ -59,6 +59,7 @@ while True:
     current_room = player.current_room
     print(f"\nYou are in the \"{current_room.name}\" room.")
     print(f"Description: \"{current_room.description}\".")
+    print(f"Available items: {current_room.list}")
     userInput = input(
         "\nPlease select your next room direction:\n`north`\t`south`\t`east`\t`west`\n  [n]\t  [s]\t  [e]\t  [w]\n\n>>> ")
     if userInput is "q":

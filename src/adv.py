@@ -39,8 +39,9 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+
 # Make a new player object that is currently in the 'outside' room.
-player = Player("Rabah", "outside")
+player = Player("Rabah", room["outside"])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -51,15 +52,25 @@ player = Player("Rabah", "outside")
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-directions = ["n", "s", "e", "w", "q"]
+directions = {"n": "n_to", "s": "s_to", "e": "e_to", "w": "w_to"}
 userInput = None
-while userInput != 'q':
-    print(f"Current location: \"{player.current_room}\" room.")
-    print(f"Current desc: \"{room[player.current_room].description}\".")
+
+while True:
+    current_room = player.location
+    print(f"You are in the \"{current_room.name}\" room.")
+    print(f"Description: \"{current_room.description}\".")
     userInput = input(
         "\nPlease choose a direction to move to:\n\t[n]\t[s]\t[e]\t[w]\n>>> ")
-    if userInput not in directions:
-        print("\t\n*** Direction not allowed. Try again?***\n")
-
+    if userInput is "q":
+        break
+    elif userInput not in directions:
+        print("\t\n*** Direction not allowed. Try again? ***\n")
+    else:
+        if (hasattr(current_room, directions[userInput])):
+            nextRoom = getattr(current_room, directions[userInput])
+            current_room = nextRoom
+        else:
+            print(
+                "\n*** No room is available in that direction. Try a different direction. ***\n")
 
 print("\t*** Good bye, see you next time. ***")

@@ -1,15 +1,15 @@
 class Room:
-    def __init__(self, name, description, list=None):
+    def __init__(self, name, description, items=None):
         self.name = name
         self.description = description
         self.n_to = None
         self.s_to = None
         self.e_to = None
         self.w_to = None
-        if list is None:
-            self.list = []
+        if items is None:
+            self.items = []
         else:
-            self.list = list
+            self.items = items
 
     def getNextRoom(self, userInput):
         if userInput == "n":

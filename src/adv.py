@@ -7,21 +7,21 @@ from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", ["Sandels", "Oranges"]),
+                     "North of you, the cave mount beckons", ["sandels", "oranges"]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", ["Torch", "Hummer"]),
+passages run north and east.""", ["torch", "hummer"]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", ["Cable", "Jacket"]),
+the distance, but there is no way across the chasm.""", ["cable", "jacket"]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", ["Hat", "Jeans"]),
+to north. The smell of gold permeates the air.""", ["hat", "jeans"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", ["Lamborghini", "Diammons", "Gold"]),
+earlier adventurers. The only exit is to the south.""", ["lamborghini", "diammons", "gold"]),
 }
 
 
@@ -56,44 +56,38 @@ player = Player(player_name, room["outside"])
 #
 # If the user enters "q", quit the game.
 instructional_text = """******************** Available Move Options ******************
-**** { N } North | { S } South |  { W } West | { E } East ****
-************** Enter [Q] to Exit the Adventure ***************\n>>> """
+   { n } North | { s } South |  { w } West | { e } East\n
+******************** Other Options ***************************
+   { get 'item name' } | { take 'item name' } Carry an item
+   { i } | { inventory } Show carried items
+******************** Enter [Q] to Exit the Adventure *********\n>>> """
 playerInput = ""
 
-print("****** WELCOME TO THE GREAT ADVENTURE GAME *********")
+print(f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********")
 while True:
     current_room = player.current_room
-    print(f"\nYou are in the \"{current_room.name}\" room.")
+    print(f"You are in the \"{current_room.name}\" room.")
     print(f"Description: \"{current_room.description}\".")
 
     items = ""
-    for i in current_room.list:
+    for i in current_room.items:
         items += "  {},".format(i)
-    print("Available items to grab: {}\n".format(items))
-    playerInput = input(instructional_text).upper().split()
+    print("\nAvailable items to carry: {}\n".format(items))
+    playerInput = input(instructional_text).lower().split()
 
     if len(playerInput) == 1:
-        if playerInput[0] == "Q":
+        if playerInput[0] == "q":
             break
         else:
-            player.walk(playerInput[0].lower())
+            player.walk(playerInput[0])
     if len(playerInput) == 2:
         if playerInput[0] != "get" and playerInput[0] != "take" and playerInput[0] != "drop":
             print(
                 "To get you're wanted item, you must proceed with (get or take) + item name.\n")
         elif playerInput[0] == "drop":
-            if playerInput[1] in player.list:
-                current_room.addItem(playerInput[1])
-                player.removeItem(playerInput[1])
-                print("\nItem dropped\n")
-            else:
-                print("\nThe selected item doesn't exists in your inventory.")
+            player.dropItem(playerInput[1])
         else:
-            if playerInput[1] in current_room.list:
-                player.addItem(playerInput[1])
-                current_room.removeItem(playerInput[1])
-                print("\nItem added\n")
-            else:
-                print("The selected item doesn't exists in the current room.")
+            player.getItem(playerInput[1])
 
-print("\t*** Good bye, see you next time. ***")
+
+print(f"\t*** Good bye {player_name}, see you next time. ***")

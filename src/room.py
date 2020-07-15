@@ -18,3 +18,6 @@ class Room:
 
     def addItem(self, item):
         self.list.append(item)
+
+    def removeItem(self, item):
+        self.list.remove(item)

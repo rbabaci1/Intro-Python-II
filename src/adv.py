@@ -73,7 +73,8 @@ while True:
         if playerInput[0] == "q":
             break
         elif playerInput[0] == "i" or playerInput[0] == "inventory":
-            print(f"Inventory: {player}")
+            print("Empty." if len(player.inventory) ==
+                  0 else ", ".join(player.inventory))
         elif playerInput[0] == "o":
             print(options)
         else:
@@ -86,6 +87,5 @@ while True:
             player.dropItem(playerInput[1])
         else:
             player.getItem(playerInput[1])
-
 
 print(f"\n\t*** Good bye {player_name}, see you next time. ***\n")

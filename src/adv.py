@@ -55,31 +55,24 @@ player = Player(player_name, room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-instructional_text = """******************** Available Move Options ******************
+print(f"****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
+print("""******************** Available Move Options ******************
    { n } North | { s } South |  { w } West | { e } East\n
 ******************** Other Options ***************************
    { get 'item name' } | { take 'item name' } Carry an item
    { i } | { inventory } Show carried items
-******************** Enter [Q] to Exit the Adventure *********\n>>> """
+******************** Enter [Q] to Exit the Adventure *********\n""")
+print(player.current_room)
+
 playerInput = ""
-
-print(f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********")
 while True:
-    current_room = player.current_room
-    print(f"You are in the \"{current_room.name}\" room.")
-    print(f"Description: \"{current_room.description}\".")
-
-    items = ""
-    for i in current_room.items:
-        items += "  {},".format(i)
-    print("\nAvailable items to carry: {}\n".format(items))
-    playerInput = input(instructional_text).lower().split()
+    playerInput = input("Make your move >>> ").lower().split()
 
     if len(playerInput) == 1:
         if playerInput[0] == "q":
             break
         elif playerInput[0] == "i" or playerInput[0] == "inventory":
-            print(player.roomItems)
+            print(f"Inventory: {player.inventory}")
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:

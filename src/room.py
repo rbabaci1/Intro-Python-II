@@ -11,6 +11,12 @@ class Room:
         else:
             self.items = items
 
+    def __str__(self):
+        list = ""
+        for i in self.items:
+            list += f" {i}, "
+        return f"Room name: {self.name}\nDescription: {self.description}\nAvailable items: {list[:-2]}\n"
+
     def getNextRoom(self, userInput):
         if userInput == "n":
             return self.n_to

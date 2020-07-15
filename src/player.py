@@ -12,20 +12,23 @@ class Player:
         try:
             nextRoom = getattr(self.current_room, f"{direction}_to")
             self.current_room = nextRoom
+            print(self.current_room)
         except AttributeError:
             print(f"\n**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
-        if item in self.roomItems:
-            self.inventory.append(item)
+        try:
             self.roomItems.remove(item)
-        else:
+            self.inventory.append(item)
+            print(f"You have picked up [{item}]")
+        except ValueError:
             print(
                 f"{item}'s not available in the current room. TRY A DIFFERENT ITEM")
 
     def dropItem(self, item):
-        if item in self.inventory:
+        try:
             self.inventory.remove(item)
             self.roomItems.append(item)
-        else:
+            print(f"You have dropped [{item}]")
+        except ValueError:
             print(f"{item}'s not available in your inventory. TRY A DIFFERENT ITEM")

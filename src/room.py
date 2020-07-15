@@ -1,7 +1,8 @@
 class Room:
-    def __init__(self, name, description):
+    def __init__(self, name, description, list=None):
         self.name = name
         self.description = description
+        self.list = list
 
     def getNextRoom(self, userInput):
         if userInput == "n":
@@ -14,3 +15,6 @@ class Room:
             return self.w_to
         else:
             return None
+
+    def addItem(self, item):
+        self.list.append(item)

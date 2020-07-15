@@ -56,7 +56,7 @@ directions = {"n": "n_to", "s": "s_to", "e": "e_to", "w": "w_to"}
 userInput = None
 
 while True:
-    current_room = player.location
+    current_room = player.current_room
     print(f"\nYou are in the \"{current_room.name}\" room.")
     print(f"Description: \"{current_room.description}\".")
     userInput = input(
@@ -67,7 +67,7 @@ while True:
         print("\t\n*** Direction not allowed. Try again? ***")
     else:
         if (hasattr(current_room, directions[userInput])):
-            player.location = current_room.getNextRoom(userInput)
+            player.current_room = current_room.getNextRoom(userInput)
         else:
             print(
                 "\n*** No room is available in that direction. Try a different direction. ***\n")

@@ -57,18 +57,17 @@ userInput = None
 
 while True:
     current_room = player.location
-    print(f"You are in the \"{current_room.name}\" room.")
+    print(f"\nYou are in the \"{current_room.name}\" room.")
     print(f"Description: \"{current_room.description}\".")
     userInput = input(
-        "\nPlease choose a direction to move to:\n\t[n]\t[s]\t[e]\t[w]\n>>> ")
+        "\nPlease select your next room direction:\n`north`\t`south`\t`east`\t`west`\n  [n]\t  [s]\t  [e]\t  [w]\n\n>>> ")
     if userInput is "q":
         break
     elif userInput not in directions:
-        print("\t\n*** Direction not allowed. Try again? ***\n")
+        print("\t\n*** Direction not allowed. Try again? ***")
     else:
         if (hasattr(current_room, directions[userInput])):
-            nextRoom = getattr(current_room, directions[userInput])
-            current_room = nextRoom
+            player.location = current_room.getNextRoom(userInput)
         else:
             print(
                 "\n*** No room is available in that direction. Try a different direction. ***\n")

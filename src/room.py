@@ -1,5 +1,3 @@
-# Implement a class to hold room information. This should have name and
-# description attributes.
 class Room:
     def __init__(self, name, description):
         self.name = name
@@ -12,5 +10,7 @@ class Room:
             return self.s_to
         elif userInput == "e":
             return self.e_to
-        else:
+        elif userInput == "w":
             return self.w_to
+        else:
+            return None

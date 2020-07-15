@@ -5,7 +5,7 @@ import textwrap
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", ["gold", "silver"]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -61,16 +61,33 @@ while True:
     print(f"Description: \"{current_room.description}\".")
     print(f"Available items: {current_room.list}")
     userInput = input(
-        "\nPlease select your next room direction:\n`north`\t`south`\t`east`\t`west`\n  [n]\t  [s]\t  [e]\t  [w]\n\n>>> ")
-    if userInput is "q":
-        break
-    elif userInput not in directions:
-        print("\t\n*** Direction not allowed. Try again? ***")
-    else:
-        if (hasattr(current_room, directions[userInput])):
-            player.current_room = current_room.getNextRoom(userInput)
+        "\n1) To move to a different room select:\n  [n]\t  [s]\t  [e]\t  [w]\n`north`\t`south`\t `east`\t `west`\n\n2) [get/take item] to pick an item from the list:\n\n>>> ").split()
+    print(userInput)
+
+    if len(userInput) is 1:
+        if userInput[0] is "q":
+            break
+        elif userInput[0] not in directions:
+            print("\t\n*** Direction not allowed. Try again? ***")
         else:
+            if (hasattr(current_room, directions[userInput[0]])):
+                player.current_room = current_room.getNextRoom(userInput[0])
+            else:
+                print(
+                    "\n*** No room is available in that direction. Try a different direction. ***\n")
+    if len(userInput) is 2:
+        if userInput[0] != "get" and userInput[0] != "take" and userInput[0] != "drop":
             print(
-                "\n*** No room is available in that direction. Try a different direction. ***\n")
+                "To get you're wanted item, you must proceed with (get or take) + item name.\n")
+        else:
+            if userInput[1] in current_room.list:
+                if userInput[0] is "drop":
+                    current_room.addItem(userInput[1])
+                    player.removeItem(userInput[1])
+                else:
+                    player.addItem(userInput[1])
+                    current_room.removeItem(userInput[1])
+            else:
+                print("The selected item doesn't exists in your current room.\n")
 
 print("\t*** Good bye, see you next time. ***")

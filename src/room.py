@@ -2,7 +2,10 @@ class Room:
     def __init__(self, name, description, list=None):
         self.name = name
         self.description = description
-        self.list = list
+        if list is None:
+            self.list = []
+        else:
+            self.list = list
 
     def getNextRoom(self, userInput):
         if userInput == "n":

@@ -18,18 +18,20 @@ class Player:
             print(f"\n**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
-        try:
-            self.roomItems.remove(item)
-            self.inventory.append(item)
-            print(f"You have picked up [ {item} ]")
-        except ValueError:
+        items = [i for i in self.roomItems if i.name == item]
+        if len(items):
+            self.inventory.append(items[0])
+            items[0].on_take()
+            del items[0]
+        else:
             print(
                 f"{item} is not available in the current room. TRY A DIFFERENT ITEM.")
 
     def dropItem(self, item):
-        try:
-            self.inventory.remove(item)
-            self.roomItems.append(item)
-            print(f"You have dropped [ {item} ]")
-        except ValueError:
+        items = [i for i in self.inventory if i.name == item]
+        if len(items):
+            self.roomItems.append(items[0])
+            items[0].on_drop()
+            del items[0]
+        else:
             print(f"{item} is not available in your inventory. TRY A DIFFERENT ITEM.")

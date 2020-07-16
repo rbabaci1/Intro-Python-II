@@ -3,8 +3,8 @@ import textwrap
 from room import Room
 from player import Player
 from item import Item
-# Declare all the rooms
 
+# Declare all the rooms
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons", [Item("sandels"), Item("oranges")]),
@@ -24,9 +24,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", [Item("lamborghini"), Item("diammons"), Item("gold")]),
 }
 
-
 # Link rooms together
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -36,11 +34,9 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-
 #
 # Main
 #
-
 
 # Make a new player object that is currently in the 'outside' room.
 player_name = input("Enter Your character name to get started >>> ")

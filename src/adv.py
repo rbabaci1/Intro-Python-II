@@ -40,8 +40,6 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-print(Back.RESET + Fore.GREEN +
-      f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
 player_name = input(
     Back.BLACK + Fore.YELLOW + "Enter Your character name to get started >>>" + Back.RESET + Fore.WHITE + " ")
 player = Player(player_name, room["outside"])
@@ -55,16 +53,16 @@ player = Player(player_name, room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-options = Fore.BLUE + """--------------- Available Move Options ---------------------------
+print(Back.RESET + Fore.GREEN +
+      f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
+print(Fore.RESET + f"{player.current_room}")
+print(Back.RESET + Fore.BLUE + """--------------- Available Move Options ---------------------------
 |   { n } North | { s } South |  { w } West | { e } East         |
 --------------- Other Options ------------------------------------
 |   { get 'item name' } | { take 'item name' } To carry an item. |
 |   { i } | { inventory } To show carried items.                 |
 |   { Q } to Exit the Adventure.                                 |
-------------------------------------------------------------------"""
-
-print(f"{player.current_room}")
-print(options)
+------------------------------------------------------------------""")
 
 playerInput = ""
 while True:
@@ -75,16 +73,17 @@ while True:
         if playerInput[0] == "q":
             break
         elif playerInput[0] in ["i", "inventory"]:
-            print(Back.RESET + Fore.WHITE + "Empty." if len(player.inventory) ==
-                  0 else Back.RESET + Fore.WHITE + ",  ".join(i.name for i in player.inventory))
+
+            print("Empty." if len(player.inventory) ==
+                  0 else ",  ".join(i.name for i in player.inventory))
         elif playerInput[0] == "o":
-            print(Back.RESET + options)
+            print(options)
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:
         if playerInput[0] not in ["get", "take", "drop"]:
             print(
-                "To get you're wanted item, you must proceed with (get or take) + item name.\n")
+                Fore.RED + "To get you're wanted item, you must proceed with (get or take) + item name.")
         elif playerInput[0] == "drop":
             player.dropItem(playerInput[1])
         else:

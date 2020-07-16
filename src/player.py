@@ -35,11 +35,11 @@ class Player:
                 Back.RESET + Fore.WHITE + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")
 
     def dropItem(self, item):
-        items = [i for i in self.inventory if i.name == item]
-        if len(items):
-            self.roomItems.append(items[0])
-            items[0].on_drop()
-            del items[0]
+        item = [i for i in self.inventory if i.name == item]
+        if len(item):
+            self.roomItems.append(item[0])
+            item[0].on_drop()
+            del item[0]
         else:
             print(Back.RESET + Fore.WHITE +
                   f"{item}" + Fore.RED + " is not available in your inventory. TRY A DIFFERENT ITEM.")

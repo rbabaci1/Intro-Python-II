@@ -48,7 +48,13 @@ player = Player(player_name, room["outside"])
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-
+options = """--------------- Available Move Options ---------------------------
+|   { n } North | { s } South |  { w } West | { e } East         |
+--------------- Other Options ------------------------------------
+|   { get 'item name' } | { take 'item name' } To carry an item. |
+|   { i } | { inventory } To show carried items.                 |
+|   { Q } to Exit the Adventure.                                 |
+------------------------------------------------------------------"""
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
@@ -56,28 +62,24 @@ player = Player(player_name, room["outside"])
 print(Back.RESET + Fore.GREEN +
       f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
 print(Fore.RESET + f"{player.current_room}")
-print(Back.RESET + Fore.BLUE + """--------------- Available Move Options ---------------------------
-|   { n } North | { s } South |  { w } West | { e } East         |
---------------- Other Options ------------------------------------
-|   { get 'item name' } | { take 'item name' } To carry an item. |
-|   { i } | { inventory } To show carried items.                 |
-|   { Q } to Exit the Adventure.                                 |
-------------------------------------------------------------------""")
+print(Back.RESET + Fore.BLUE + options)
 
 playerInput = ""
 while True:
     playerInput = input(Back.BLACK + Fore.YELLOW +
                         "Select an option >>>" + Back.RESET + Fore.WHITE + " ").lower().split()
+    print(Fore.BLUE + "\t\t\t\t\t\t[o] Options | [r] Room details")
 
     if len(playerInput) == 1:
         if playerInput[0] == "q":
             break
         elif playerInput[0] in ["i", "inventory"]:
-
             print("Empty." if len(player.inventory) ==
                   0 else ",  ".join(i.name for i in player.inventory))
         elif playerInput[0] == "o":
-            print(options)
+            print(Fore.BLUE + options)
+        elif playerInput[0] == "r":
+            print(Fore.WHITE + f"{player.current_room}")
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:

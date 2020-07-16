@@ -18,18 +18,16 @@ class Player:
                 raise AttributeError
             else:
                 self.current_room = nextRoom
-                print(
-                    Back.RESET + Fore.WHITE + f"{self.current_room}\t\t\t\t\t\t" + Fore.BLUE + "[o] Options")
         except AttributeError:
             print(Back.RESET + Fore.RED +
                   f"**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
-        items = [i for i in self.roomItems if i.name == item]
-        if len(items):
-            self.inventory.append(items[0])
-            items[0].on_take()
-            del items[0]
+        item = [i for i in self.roomItems if i.name == item]
+        if len(item):
+            self.inventory.append(item[0])
+            item[0].on_take()
+            self.roomItems.remove(item[0])
         else:
             print(
                 Back.RESET + Fore.WHITE + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")

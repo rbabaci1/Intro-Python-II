@@ -15,7 +15,8 @@ class Room:
             self.items = items
 
     def __str__(self):
-        return "Current room: {}\nDescription: {}\nAvailable items:  [ {} ]\n".format(self.name, self.description, ",  ".join(i.name for i in self.items))
+        output = f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: "
+        return output + ("Nothing left" if len(self.items) == 0 else ",  ".join(i.name for i in self.items))
 
     def getNextRoom(self, userInput):
         if userInput == "n":

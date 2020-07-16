@@ -12,7 +12,7 @@ class Room:
             self.items = items
 
     def __str__(self):
-        return "Current room: {}\nDescription: {}\nAvailable items:  {}\n".format(self.name, self.description, ",  ".join(i.name for i in self.items))
+        return "Current room: {}\nDescription: {}\nAvailable items:  [ {} ]\n".format(self.name, self.description, ",  ".join(i.name for i in self.items))
 
     def getNextRoom(self, userInput):
         if userInput == "n":

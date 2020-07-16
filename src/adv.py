@@ -51,12 +51,13 @@ player = Player(player_name, room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-options = """******************** Available Move Options ******************
-   { n } North | { s } South |  { w } West | { e } East\n
-******************** Other Options ***************************
-   { get 'item name' } | { take 'item name' } Carry an item
-   { i } | { inventory } Show carried items
-******************** Enter [Q] to Exit the Adventure *********\n"""
+options = """--------------- Available Move Options ---------------------------
+|   { n } North | { s } South |  { w } West | { e } East         |
+--------------- Other Options ------------------------------------
+|   { get 'item name' } | { take 'item name' } To carry an item. |
+|   { i } | { inventory } To show carried items.                 |
+|   { Q } to Exit the Adventure.                                 |
+------------------------------------------------------------------"""
 
 print(f"****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
 print(player.current_room)

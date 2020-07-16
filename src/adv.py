@@ -82,7 +82,11 @@ while True:
             print(Fore.WHITE + f"{player.current_room}")
         else:
             player.walk(playerInput[0])
-    if len(playerInput) == 2:
+            if player.current_room.name == "Treasure Chamber":
+                print(Fore.BLACK + Back.GREEN +
+                      "\n*** Congrats, you made it to the Treasure room. All the left items are yours. ***\n")
+                break
+    elif len(playerInput) == 2:
         if playerInput[0] not in ["get", "take", "drop"]:
             print(
                 Fore.RED + "To get you're wanted item, you must proceed with (get or take) + item name.")

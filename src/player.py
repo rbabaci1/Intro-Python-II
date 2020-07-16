@@ -1,3 +1,6 @@
+from colorama import Fore, Back
+
+
 class Player:
     def __init__(self, name, current_room):
         self.name = name
@@ -11,11 +14,15 @@ class Player:
     def walk(self, direction):
         try:
             nextRoom = getattr(self.current_room, f"{direction}_to")
-            self.current_room = nextRoom
-            print(
-                f"{self.current_room}\t\t\t\t\t\t[o] Options")
+            if nextRoom == None:
+                raise AttributeError
+            else:
+                self.current_room = nextRoom
+                print(
+                    Back.RESET + Fore.WHITE + f"{self.current_room}\t\t\t\t\t\t" + Fore.BLUE + "[o] Options")
         except AttributeError:
-            print(f"\n**** There is no path in that direction! TRY AGAIN ****")
+            print(Back.RESET + Fore.RED +
+                  f"**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
         items = [i for i in self.roomItems if i.name == item]
@@ -25,7 +32,7 @@ class Player:
             del items[0]
         else:
             print(
-                f"{item} is not available in the current room. TRY A DIFFERENT ITEM.")
+                Back.RESET + Fore.WHITE + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")
 
     def dropItem(self, item):
         items = [i for i in self.inventory if i.name == item]
@@ -34,4 +41,5 @@ class Player:
             items[0].on_drop()
             del items[0]
         else:
-            print(f"{item} is not available in your inventory. TRY A DIFFERENT ITEM.")
+            print(Back.RESET + Fore.WHITE +
+                  f"{item}" + Fore.RED + " is not available in your inventory. TRY A DIFFERENT ITEM.")

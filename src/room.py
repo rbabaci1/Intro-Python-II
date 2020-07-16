@@ -1,3 +1,6 @@
+from colorama import Fore, Back
+
+
 class Room:
     def __init__(self, name, description, items=None):
         self.name = name

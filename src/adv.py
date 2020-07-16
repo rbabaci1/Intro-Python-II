@@ -1,8 +1,9 @@
-import textwrap
-
-from room import Room
-from player import Player
 from item import Item
+from player import Player
+from room import Room
+import textwrap
+from colorama import Fore, Back
+
 
 # Declare all the rooms
 room = {
@@ -39,7 +40,10 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player_name = input("Enter Your character name to get started >>> ")
+print(Back.RESET + Fore.GREEN +
+      f"\n****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
+player_name = input(
+    Back.BLACK + Fore.YELLOW + "Enter Your character name to get started >>>" + Back.RESET + Fore.WHITE + " ")
 player = Player(player_name, room["outside"])
 # Write a loop that:
 #
@@ -51,7 +55,7 @@ player = Player(player_name, room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-options = """--------------- Available Move Options ---------------------------
+options = Fore.BLUE + """--------------- Available Move Options ---------------------------
 |   { n } North | { s } South |  { w } West | { e } East         |
 --------------- Other Options ------------------------------------
 |   { get 'item name' } | { take 'item name' } To carry an item. |
@@ -59,22 +63,22 @@ options = """--------------- Available Move Options ---------------------------
 |   { Q } to Exit the Adventure.                                 |
 ------------------------------------------------------------------"""
 
-print(f"****** WELCOME TO THE GREAT ADVENTURE GAME *********\n")
-print(player.current_room)
+print(f"{player.current_room}")
 print(options)
 
 playerInput = ""
 while True:
-    playerInput = input("Select an option >>> ").lower().split()
+    playerInput = input(Back.BLACK + Fore.YELLOW +
+                        "Select an option >>>" + Back.RESET + Fore.WHITE + " ").lower().split()
 
     if len(playerInput) == 1:
         if playerInput[0] == "q":
             break
         elif playerInput[0] in ["i", "inventory"]:
-            print("Empty." if len(player.inventory) ==
-                  0 else ",  ".join(i.name for i in player.inventory))
+            print(Back.RESET + Fore.WHITE + "Empty." if len(player.inventory) ==
+                  0 else Back.RESET + Fore.WHITE + ",  ".join(i.name for i in player.inventory))
         elif playerInput[0] == "o":
-            print(options)
+            print(Back.RESET + options)
         else:
             player.walk(playerInput[0])
     if len(playerInput) == 2:
@@ -87,4 +91,5 @@ while True:
             player.getItem(playerInput[1])
 
 
-print(f"\n\t*** Good bye {player_name}, see you next time. ***\n")
+print(Back.RESET + Fore.GREEN +
+      "\n\t*** Good bye " + Fore.WHITE + f"{player_name}" + Fore.GREEN + ", see you next time. ***\n")

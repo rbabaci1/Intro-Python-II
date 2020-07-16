@@ -13,11 +13,13 @@ class Player:
 
     def walk(self, direction):
         try:
-            nextRoom = getattr(self.current_room, f"{direction}_to")
+            nextRoom = self.current_room.getNextRoom(direction)
             if nextRoom == None:
                 raise AttributeError
             else:
                 self.current_room = nextRoom
+                print(Fore.GREEN + "Moving...\n" +
+                      Fore.RESET + f"{self.current_room}")
         except AttributeError:
             print(Back.RESET + Fore.RED +
                   f"**** There is no path in that direction! TRY AGAIN ****")

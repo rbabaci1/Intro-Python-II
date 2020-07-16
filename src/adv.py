@@ -68,7 +68,7 @@ playerInput = ""
 while True:
     playerInput = input(Back.BLACK + Fore.YELLOW +
                         "Select an option >>>" + Back.RESET + Fore.WHITE + " ").lower().split()
-    print(Fore.BLUE + "\t\t\t\t\t\t[o] Options | [r] Room details")
+    print(Fore.BLUE + "\t\t\t\t\t[o] Options | [r] Room details")
 
     if len(playerInput) == 1:
         if playerInput[0] == "q":

@@ -66,7 +66,7 @@ while True:
             player.manageVerb(playerInput[0])
 
     elif len(playerInput) == 2:
-        player.manageNoun(playerInput)
+        player.manageAction(playerInput[0], playerInput[1])
 
 print(Back.RESET + Fore.GREEN + "\n\t*** Good bye " + Fore.WHITE +
       f"{player_name}" + Fore.GREEN + ", see you next time. ***\n")

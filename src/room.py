@@ -21,4 +21,4 @@ class Room:
             output = f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: "
             return (output + (Fore.RED + "Nothing left" if len(self.items) == 0 else Fore.GREEN + ",  ".join(i.name for i in self.items)))
         else:
-            return "It's pitch black!, get a lamp to look around"
+            return Fore.RED + "It's pitch black!, get a lamp to look around"

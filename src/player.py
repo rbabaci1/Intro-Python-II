@@ -23,14 +23,14 @@ class Player(Validate):
         else:
             self.walk(verb)
 
-    def manageNoun(self, playerInput):
-        if playerInput[0] not in ["get", "take", "drop"]:
-            print(
-                Fore.RED + "To get you're wanted item, you must proceed with (get or take) + item name.")
-        elif playerInput[0] == "drop":
-            self.dropItem(playerInput[1])
+    def manageAction(self, verb, noun):
+        if verb in ["get", "take"]:
+            self.getItem(noun)
+        elif verb == "drop":
+            self.dropItem(noun)
         else:
-            self.getItem(playerInput[1])
+            print(
+                Fore.RED + "Please follow this format { get/take 'item name' }")
 
     def walk(self, direction):
         result = self.validateDirection(direction)

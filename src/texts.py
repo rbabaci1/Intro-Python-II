@@ -3,7 +3,7 @@ from colorama import Fore, Back
 optionsText = """ ------------------ Available Move Options ---------------------
 |   { n } North | { s } South |  { w } West | { e } East        |
 |                                                               |
- ------------------- Other Options -----------------------------
+ ----------------------- Other Options -------------------------
 |   { get 'item name' } | { take 'item name' } To carry an item |
 |                                                               |
  --------------- { Q } to Exit the Adventure -------------------"""

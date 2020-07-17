@@ -2,9 +2,10 @@ from colorama import Fore, Back
 
 
 class Room:
-    def __init__(self, name, description, items=None):
+    def __init__(self, name, description, is_light, items=None):
         self.name = name
         self.description = description
+        self.is_light = is_light
         self.n_to = None
         self.s_to = None
         self.e_to = None

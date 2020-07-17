@@ -1,4 +1,5 @@
 from colorama import Fore, Back
+import sys
 
 from item import Item
 from player import Player
@@ -8,21 +9,21 @@ from lightSource import LightSource
 # Declare all the rooms
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", [Item("sandels"), Item("oranges")]),
+                     "North of you, the cave mount beckons", False, [Item("sandels"), Item("oranges")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [Item("batteries"), Item("hummer")]),
+passages run north and east.""", False, [Item("batteries"), Item("hummer")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", [Item("cable"), Item("jacket"), LightSource("lamp")]),
+the distance, but there is no way across the chasm.""", False, [Item("cable"), Item("jacket"), LightSource("lamp")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", [Item("hat"), Item("jeans")]),
+to north. The smell of gold permeates the air.""", True, [Item("hat"), Item("jeans")]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", [Item("lamborghini"), Item("diammons"), Item("gold")]),
+earlier adventurers. The only exit is to the south.""", False, [Item("lamborghini"), Item("diammons"), Item("gold")]),
 }
 
 # Link rooms together
@@ -52,7 +53,7 @@ options = """ ------------------ Available Move Options ---------------------
 |   { n } North | { s } South |  { w } West | { e } East        |
 |                                                               |   
  ------------------- Other Options -----------------------------
-|   { get 'item name' } | { take 'item name' } To carry an item.|
+|   { get 'item name' } | { take 'item name' } To carry an item |
 |                                                               |
  --------------- { Q } to Exit the Adventure -------------------"""
 # If the user enters a cardinal direction, attempt to move to the room there.
@@ -75,8 +76,9 @@ while True:
         if playerInput[0] == "q":
             break
         elif playerInput[0] in ["i", "inventory"]:
-            print("Empty." if len(player.inventory) ==
-                  0 else ",  ".join(i.name for i in player.inventory))
+            inv = "No items in your inventory." if len(
+                player.inventory) == 0 else ",  ".join(i.name for i in player.inventory)
+            print(Fore.WHITE + inv)
         elif playerInput[0] == "o":
             print(Fore.BLUE + options)
         elif playerInput[0] == "r":
@@ -99,3 +101,4 @@ while True:
 
 print(Back.RESET + Fore.GREEN +
       "\n\t*** Good bye " + Fore.WHITE + f"{player_name}" + Fore.GREEN + ", see you next time. ***\n")
+sys.exit(0)

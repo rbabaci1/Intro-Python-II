@@ -52,7 +52,7 @@ print(Back.RESET + Fore.BLUE + optionsText)
 ###########################################################################
 playerInput = ""
 while True:
-    print(Fore.RESET + f"{player.current_room.display(player.inventory)}")
+    print(Fore.RESET + f"{player.current_room.displayRoom(player.inventory)}")
     playerInput = getPlayerInput()
     print(Fore.BLUE + "[i/inventory] Carried items  |  [o] Options")
 
@@ -68,5 +68,6 @@ while True:
     elif len(playerInput) == 2:
         player.manageAction(playerInput[0], playerInput[1])
 
+###########################################################################
 print(Back.RESET + Fore.GREEN + "\n\t*** Good bye " + Fore.WHITE +
       f"{player_name}" + Fore.GREEN + ", see you next time. ***\n")

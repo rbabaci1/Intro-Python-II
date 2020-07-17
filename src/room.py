@@ -17,15 +17,3 @@ class Room:
     def __str__(self):
         output = f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: "
         return output + ("Nothing left" if len(self.items) == 0 else ",  ".join(i.name for i in self.items))
-
-    def getNextRoom(self, userInput):
-        if userInput == "n":
-            return self.n_to
-        elif userInput == "s":
-            return self.s_to
-        elif userInput == "e":
-            return self.e_to
-        elif userInput == "w":
-            return self.w_to
-        else:
-            return None

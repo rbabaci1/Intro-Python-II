@@ -13,7 +13,7 @@ class Player:
 
     def walk(self, direction):
         try:
-            nextRoom = self.current_room.getNextRoom(direction)
+            nextRoom = getattr(self.current_room, f"{direction}_to")
             if nextRoom == None:
                 raise AttributeError
             else:

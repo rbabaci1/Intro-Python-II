@@ -48,13 +48,13 @@ player = Player(player_name, room["outside"])
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-options = """--------------- Available Move Options ---------------------------
-|   { n } North | { s } South |  { w } West | { e } East         |
---------------- Other Options ------------------------------------
-|   { get 'item name' } | { take 'item name' } To carry an item. |
-|   { i } | { inventory } To show carried items.                 |
-|   { Q } to Exit the Adventure.                                 |
-------------------------------------------------------------------"""
+options = """ ------------------ Available Move Options ---------------------
+|   { n } North | { s } South |  { w } West | { e } East        |
+|                                                               |   
+ ------------------- Other Options -----------------------------
+|   { get 'item name' } | { take 'item name' } To carry an item.|
+|                                                               |
+ --------------- { Q } to Exit the Adventure -------------------"""
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
@@ -68,7 +68,8 @@ playerInput = ""
 while True:
     playerInput = input(Back.BLACK + Fore.YELLOW +
                         "Select an option >>>" + Back.RESET + Fore.WHITE + " ").lower().split()
-    print(Fore.BLUE + "\t\t\t\t\t[o] Options | [r] Room details")
+    print(Fore.BLUE +
+          "[i/inventory] Carried items  |  [o] Options  |  [r] Room details")
 
     if len(playerInput) == 1:
         if playerInput[0] == "q":

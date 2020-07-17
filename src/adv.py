@@ -1,9 +1,9 @@
+from colorama import Fore, Back
+
 from item import Item
 from player import Player
 from room import Room
-import textwrap
-from colorama import Fore, Back
-
+from lightSource import LightSource
 
 # Declare all the rooms
 room = {
@@ -11,11 +11,11 @@ room = {
                      "North of you, the cave mount beckons", [Item("sandels"), Item("oranges")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [Item("torch"), Item("hummer")]),
+passages run north and east.""", [Item("batteries"), Item("hummer")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", [Item("cable"), Item("jacket")]),
+the distance, but there is no way across the chasm.""", [Item("cable"), Item("jacket"), LightSource("lamp")]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air.""", [Item("hat"), Item("jeans")]),

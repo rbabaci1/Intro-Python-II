@@ -2,7 +2,7 @@ from colorama import Fore, Back
 
 
 class Item:
-    def __init__(self, name, description="None"):
+    def __init__(self, name="", description="None"):
         self.name = name
         self.description = description
 

@@ -25,21 +25,21 @@ class Player:
                   f"**** There is no path in that direction! TRY AGAIN ****")
 
     def getItem(self, item):
-        item = [i for i in self.roomItems if i.name == item]
-        if len(item):
-            self.inventory.append(item[0])
-            item[0].on_take()
-            self.roomItems.remove(item[0])
+        items = [i for i in self.roomItems if i.name == item]
+        if len(items):
+            self.inventory.append(items[0])
+            items[0].on_take()
+            self.roomItems.remove(items[0])
         else:
             print(
                 Back.RESET + Fore.WHITE + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")
 
     def dropItem(self, item):
-        item = [i for i in self.inventory if i.name == item]
-        if len(item):
-            self.roomItems.append(item[0])
-            item[0].on_drop()
-            del item[0]
+        items = [i for i in self.inventory if i.name == item]
+        if len(items):
+            self.roomItems.append(items[0])
+            items[0].on_drop()
+            del items[0]
         else:
             print(Back.RESET + Fore.WHITE +
                   f"{item}" + Fore.RED + " is not available in your inventory. TRY A DIFFERENT ITEM.")

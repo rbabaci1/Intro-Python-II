@@ -1,7 +1,9 @@
 from colorama import Fore, Back
+from texts import optionsText
+from validate import Validate
 
 
-class Player:
+class Player(Validate):
     def __init__(self, name, current_room):
         self.name = name
         self.current_room = current_room
@@ -11,35 +13,48 @@ class Player:
     def roomItems(self):
         return self.current_room.items
 
+    def manageVerb(self, verb):
+        if verb in ["i", "inventory"]:
+            inv = "Empty." if len(self.inventory) == 0 else ",  ".join(
+                i.name for i in self.inventory)
+            print(Fore.MAGENTA + f"Inventory: {inv}")
+        elif verb == "o":
+            print(Fore.BLUE + options)
+        else:
+            self.walk(verb)
+
+    def manageNoun(self, playerInput):
+        if playerInput[0] not in ["get", "take", "drop"]:
+            print(
+                Fore.RED + "To get you're wanted item, you must proceed with (get or take) + item name.")
+        elif playerInput[0] == "drop":
+            self.dropItem(playerInput[1])
+        else:
+            self.getItem(playerInput[1])
+
     def walk(self, direction):
-        try:
-            nextRoom = getattr(self.current_room, f"{direction}_to")
-            if nextRoom == None:
-                raise AttributeError
-            else:
-                self.current_room = nextRoom
-                print(Fore.GREEN + "Moving...\n" +
-                      Fore.RESET + f"{self.current_room}")
-        except AttributeError:
-            print(Back.RESET + Fore.RED +
-                  f"**** There is no path in that direction! TRY AGAIN ****")
+        result = self.validateDirection(direction)
+        if result:
+            self.current_room = result
+        else:
+            print(Back.RESET + Fore.RED + f"*** Direction blocked! TRY AGAIN ***")
 
     def getItem(self, item):
-        items = [i for i in self.roomItems if i.name == item]
-        if len(items):
-            self.inventory.append(items[0])
-            items[0].on_take()
-            self.roomItems.remove(items[0])
+        result = self.validateItem(item, "room")
+        if result:
+            self.inventory.append(result)
+            result.on_take()
+            self.roomItems.remove(result)
         else:
             print(
-                Back.RESET + Fore.WHITE + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")
+                Back.RESET + Fore.MAGENTA + f"{item}" + Fore.RED + " is not available in the current room. TRY A DIFFERENT ITEM.")
 
     def dropItem(self, item):
-        items = [i for i in self.inventory if i.name == item]
-        if len(items):
-            self.roomItems.append(items[0])
-            items[0].on_drop()
-            del items[0]
+        result = self.validateItem(item, "inventory")
+        if result:
+            self.roomItems.append(result)
+            result.on_drop()
+            self.inventory.remove(result)
         else:
             print(Back.RESET + Fore.WHITE +
                   f"{item}" + Fore.RED + " is not available in your inventory. TRY A DIFFERENT ITEM.")

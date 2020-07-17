@@ -11,5 +11,5 @@ class Item:
               "You have picked up [{}].".format(self.name))
 
     def on_drop(self):
-        print(Back.RESET + Fore.GREEN +
+        print(Back.RESET + Fore.LIGHTRED_EX +
               "You have dropped [{}].".format(self.name))

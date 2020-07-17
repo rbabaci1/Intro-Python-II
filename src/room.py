@@ -1,4 +1,5 @@
 from colorama import Fore, Back
+from lightSource import LightSource
 
 
 class Room:
@@ -15,6 +16,9 @@ class Room:
         else:
             self.items = items
 
-    def __str__(self):
-        output = f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: "
-        return output + ("Nothing left" if len(self.items) == 0 else ",  ".join(i.name for i in self.items))
+    def display(self, inventory):
+        if self.is_light or any(isinstance(i, LightSource) == True for i in inventory):
+            output = f"Current room: {self.name}\nDescription: {self.description}\nAvailable items: "
+            return (output + (Fore.RED + "Nothing left" if len(self.items) == 0 else Fore.GREEN + ",  ".join(i.name for i in self.items)))
+        else:
+            return "It's pitch black!, get a lamp to look around"
